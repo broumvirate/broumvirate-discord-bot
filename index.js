@@ -12,7 +12,6 @@ const twitclient = new Twitter({
     access_token_secret: process.env.ACC_SECRET // from your User (oauth_token_secret)
 });
 
-
 const prefix = "&";
 const votesreq = 3;
 let tweetsarr = [];
@@ -34,7 +33,7 @@ client.on('message', message => {
         if (command == "&tweet") {
             split.shift();
             const content = split.join(" ");
-            if (content != ""){
+            if (content != "") {
 
                 let tweet = {
                     content: content,
@@ -64,6 +63,7 @@ client.on('message', message => {
                 console.log(votenum);
                 if (tweetsarr[votenum]) {
                     if (!tweetsarr[votenum].users.includes(message.author)) {
+                        message.channel.reply("your vote has been counted.")
                         if (votestate.toLowerCase() == "yes") {
                             tweetsarr[votenum].yes++;
                             if (tweetsarr[votenum].yes >= votesreq) {
@@ -97,10 +97,14 @@ client.on('message', message => {
             }
         }
         if (command == "&index") {
-            tweetsarr.forEach(element => {
-                message.channel.send(element.id + ". " + element.content)
+            if (tweetsarr.length > 0) {
+                tweetsarr.forEach(element => {
+                    message.channel.send(element.id + ". " + element.content + " [" + element.yes + "/3 yes, " + element.no + "/3 no]")
 
-            });
+                });
+            } else {
+                message.reply("there are no tweets currently in the index.")
+            }
 
         }
         if (command == "&help") {

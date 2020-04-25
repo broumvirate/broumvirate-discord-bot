@@ -26,4 +26,11 @@ if (message.content.startsWith("!tweetums")) {
          
          tweetsarr[votenum].users.includes(message.author)
          
+         const twitclient = new Twitter({
+    subdomain: "api",
+    consumer_key: "gTahYGb2dMqN20lfb21FAAto0", // from Twitter.
+    consumer_secret: "yQDljrO4obl32E80ErICqLURlCORdaI7trbZ6Scfkl46g2kjGI", // from Twitter.
+    access_token_key: "754104391116984321-gC8BzF9du1IJLZ6w0hNWVH4yVBo0vEK", // from your User (oauth_token)
+    access_token_secret: "U8Ov1AmkOKbuOCk3zfpD3TPFg7BzJzHcrPHb5G3u538Z6" // from your User (oauth_token_secret)
+});
          
