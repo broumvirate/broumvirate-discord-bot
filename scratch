@@ -1,0 +1,29 @@
+oauth.consumerKey = 1ITNAooGNw9GWMpLMTDVMEBXL
+oauth.consumerSecret = 78fF4icLrbfuZaQkZj7Okju2ND3UxOIF01dw9vlxFhVx7Fku6R
+oauth.accessToken = 4871805507-hMOvaDW0NwGCgpYitbdjxxlxfTjwqFHs9zVym0j
+oauth.accessTokenSecret = vRyQaBpgp03dbkPZTBNFzuepzYg37kM7ZTKDdep8W44cL
+
+
+
+
+if (message.content.startsWith("!tweetums")) {
+       
+        message.channel.send("Some dumb idiot would like to tweet:```" + message.content + "``` Reply !tweetit to tweet.");
+        
+    }
+    
+    
+    
+    console.log(message.content);
+        twitclient.post("statuses/update", {status: message.content});
+        
+        
+        tweetsarr[tweetsarr.indexOf(element)].id = indexOf(element);
+        
+        const server = client.guilds.get("GUILD-ID");
+        
+         && !tweetsarr[votenum].users.includes(message.author)
+         
+         tweetsarr[votenum].users.includes(message.author)
+         
+         
