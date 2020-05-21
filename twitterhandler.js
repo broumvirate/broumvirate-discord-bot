@@ -13,9 +13,9 @@ const twitclient = new Twitter({
 
 module.exports.tweet = (message, tweetcontent) => {
 
-    /*twitclient.post("statuses/update", {
+    twitclient.post("statuses/update", {
         status: tweetcontent.content
-    });*/
+    });
     
     message.channel.send(`Successfully tweeted '${tweetcontent.content}' to the Broumvirate account.`);
 }
