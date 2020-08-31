@@ -13,7 +13,7 @@ module.exports = (client, message) => {
     if (!message.content.startsWith(prefix) || message.author.bot) {
         return
     }
-    if (message.author.id == 80700923318108160) {
+    if (message.author.id == 280700923318108160) {
         message.channel.send("Error: User is Emerson");
         return
     }
