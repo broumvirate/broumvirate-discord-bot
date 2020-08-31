@@ -19,7 +19,7 @@ jobs:
         KEY: ${{ secrets.SSHKEY }}
       with:
         source: "."
-        target: "/home/ben/broumvirate-discord"
+        target: "/home/github/discord"
 
     - name: Executing remote  command
       uses: appleboy/ssh-action@master
