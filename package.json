@@ -1,29 +1,29 @@
 {
-  "name": "Tweetums",
-  "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node index.js",
-    "dev": "nodemon index.js"
-  },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "devDependencies": {
-    "nodemon": "^2.0.3"
-  },
-  "dependencies": {
-    "dependencies": "0.0.1",
-    "discord.js": "^12.2.0",
-    "dotenv": "^8.2.0",
-    "imagemagick": "^0.1.3",
-    "moment": "^2.27.0",
-    "mongodb": "^3.5.7",
-    "mongoose": "^5.9.12",
-    "require-dir": "^1.2.0",
-    "sharp": "^0.25.3",
-    "twitter-lite": "^0.9.4"
-  }
+    "name": "broumvirate-discord-bots",
+    "version": "1.0.0",
+    "description": "",
+    "main": "index.js",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1",
+        "start": "node index.js",
+        "dev": "nodemon index.js"
+    },
+    "keywords": [],
+    "author": "",
+    "license": "ISC",
+    "devDependencies": {
+        "nodemon": "^2.0.3"
+    },
+    "dependencies": {
+        "dependencies": "0.0.1",
+        "discord.js": "^12.2.0",
+        "dotenv": "^8.2.0",
+        "imagemagick": "^0.1.3",
+        "moment": "^2.27.0",
+        "mongodb": "^3.5.7",
+        "mongoose": "^5.9.12",
+        "require-dir": "^1.2.0",
+        "sharp": "^0.25.3",
+        "twitter-lite": "^0.9.4"
+    }
 }
