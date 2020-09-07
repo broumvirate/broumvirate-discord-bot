@@ -1,4 +1,4 @@
-name: Deploy
+name: Deploy to DigitalOcean
 
 on: [push]
 
@@ -28,4 +28,4 @@ jobs:
         USERNAME: ${{ secrets.USERNAME }}
         PORT: ${{ secrets.PORT }}
         KEY: ${{ secrets.SSHKEY }}
-        script: pm2 restart 0
+        script: /home/github/start.sh
