@@ -2,6 +2,8 @@ const ffmpeg = require("ffmpeg");
 const fs = require("fs");
 
 module.exports.soundbro = function (client) {
+    let leaveTimer;
+
     client.on("ready", () => {
         //console.log("I'm here, fuck you");
         client.user.setActivity("Just sittin' there", {
@@ -31,6 +33,12 @@ module.exports.soundbro = function (client) {
                             .join()
                             .then((connection) => {
                                 connection.play(`sounds/${fileNum}.mp3`);
+
+                                clearTimeout(leaveTimer);
+                                leaveTimer = setTimeout(() => {
+                                    message.channel.send("Bye bye!");
+                                    connection.disconnect();
+                                }, 300000);
                             })
                             .catch((err) => console.log(err));
                     }
