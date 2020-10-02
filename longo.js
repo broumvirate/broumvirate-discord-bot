@@ -13,5 +13,5 @@ dir.tweetindex.find({}, function (err, tweets) {
         console.log(err);
         return;
     }
-    console.log(tweets);
+    //console.log(tweets);
 });

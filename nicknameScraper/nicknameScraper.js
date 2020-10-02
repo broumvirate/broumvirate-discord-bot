@@ -2,7 +2,8 @@ const Discord = require("discord.js"),
     mongoose = require("mongoose"),
     moment = require("moment"),
     dotEnv = require("dotenv"),
-    helpers = require("./helpers");
+    helpers = require("./helpers"),
+    dayjs = require("dayjs");
 
 const client = new Discord.Client();
 
@@ -16,7 +17,13 @@ let discordMessages = []; // Contains: messages pulled directly from discord
 let nickEntries = []; // Contains:
 
 client.once("ready", () => {
-    console.log("We be scrapin nicknames");
+    if (dayjs().date() > 0 && dayjs().date() < 4) {
+        client.channels.cache
+            .get("689857306321485880")
+            .send(
+                `AUTOMATED REMINDER: BHotM Submissions due in ${helpers.bhotmString()}`
+            );
+    }
     client.channels
         .fetch("699995522718630020")
         .then((channel) =>

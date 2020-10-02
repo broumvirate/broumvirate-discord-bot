@@ -21,11 +21,11 @@ module.exports.command = async (message, args) => {
             if (err) {
                 console.log(err);
             } else {
-                console.log(result);
+                //console.log(result);
                 let currenttweet = await tweetindex.findOne({
                     sort: args[1],
                 });
-                console.log(currenttweet);
+                //console.log(currenttweet);
                 //If the tweet exists, continue processing.
                 if (result) {
                     //Check authors and see is this user has already voted for this tweet.

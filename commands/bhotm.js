@@ -14,15 +14,7 @@ module.exports.command = async (message) => {
     const seconds = Math.floor((distance % (1000 * 60)) / 1000);
 
     message.channel.send(
-        "BHotM submissions due in: " +
-            days +
-            "d " +
-            hours +
-            "h " +
-            minutes +
-            "m " +
-            seconds +
-            "s "
+        `BHotM submissions due in: ${days}d ${hours}h ${minutes}m ${seconds}s `
     );
 };
 
