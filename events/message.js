@@ -24,7 +24,12 @@ module.exports = (client, message) => {
     //console.log(args)
     //console.log(command)
     //console.log(`../commands/${command}.js`)
-    if (fs.existsSync(`./commands/${command}.js`)) {
-        commands[command].command(message, args);
-    }
+
+    fs.access(`./commands/${command}.js`, function (err) {
+        if (err) {
+            // File does not exist
+        } else {
+            commands[command].command(message, args);
+        }
+    });
 };
