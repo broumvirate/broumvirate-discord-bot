@@ -1,7 +1,7 @@
 const Discord = require("discord.js");
 const longo = require("mongoose");
 const tweetindex = require("../schema/tweetindex.js");
-const longoman = require("../longoman.js");
+const longoman = require("../helpers.js");
 
 module.exports.help =
     "**&vote [yes/no] [tweet id]:** Vote for a tweet in the running.";

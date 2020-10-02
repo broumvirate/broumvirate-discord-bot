@@ -3,6 +3,7 @@ const Discord = require("discord.js"),
     moment = require("moment"),
     dotEnv = require("dotenv"),
     helpers = require("./helpers"),
+    otherHelpers = require("../helpers"),
     dayjs = require("dayjs");
 
 const client = new Discord.Client();
@@ -21,7 +22,7 @@ client.once("ready", () => {
         client.channels.cache
             .get("689857306321485880")
             .send(
-                `AUTOMATED REMINDER: BHotM Submissions due in ${helpers.bhotmString()}`
+                `AUTOMATED REMINDER: BHotM Submissions due in ${otherHelpers.bhotmString()}`
             );
     }
     client.channels
