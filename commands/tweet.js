@@ -10,7 +10,6 @@ module.exports.command = (message, args) => {
         );
         return;
     }
-    console.log(args);
 
     //Consolidates args into string, creates a tweet in the database.
     const tweet = args.join(" ");
@@ -18,9 +17,6 @@ module.exports.command = (message, args) => {
     tweetindex
         .countDocuments()
         .then((id) => {
-            message.channel.send(
-                `${message.author.username} would like to tweet '${tweet}'. Use &vote [yes/no] ${id} to vote.`
-            );
             return tweetindex.create({
                 content: tweet,
                 yes: 1,
@@ -28,6 +24,12 @@ module.exports.command = (message, args) => {
                 voted: message.author.id,
                 sort: id,
             });
+        })
+        .then((tweet) => {
+            message.channel.send(
+                `${message.author.username} would like to tweet '${tweet.content}'. Use &vote [yes/no] ${tweet.sort} to vote.`
+            );
+            console.log("Tweeted", tweet.content);
         })
         .catch((err) => {
             console.log(err);

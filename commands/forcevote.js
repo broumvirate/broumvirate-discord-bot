@@ -6,22 +6,18 @@ module.exports.command = (message, args) => {
         return;
     } else {
         tweetindex
-            .exists({ sort: args[0] })
-            .then((result) => {
-                //console.log(result);
-                return tweetindex
-                    .findOne({ sort: args[0] })
-                    .then((currentTweet) => {
-                        //console.log(currenttweet);
+            .findOne({ sort: args[0] })
+            .then((currentTweet) => {
+                //console.log(currenttweet);
 
-                        //If the tweet exists, continue processing.
-                        if (result) {
-                            currenttweet.yes = 3;
-                            return currenttweet.save().then(() => {
-                                longoman.checkvotes(message, currenttweet);
-                            });
-                        }
-                    });
+                //If the tweet exists, continue processing.
+                if (currentTweet) {
+                    currentTweet.yes = 3;
+                    return currentTweet.save();
+                }
+            })
+            .then((currentTweet) => {
+                longoman.checkvotes(message, currentTweet);
             })
             .catch((err) => {
                 console.log(err);
