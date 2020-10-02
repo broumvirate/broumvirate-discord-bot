@@ -1,11 +1,10 @@
-const ffmpeg = require("ffmpeg");
 const fs = require("fs");
 
-module.exports.soundbro = function (client) {
+module.exports = function (client) {
     let leaveTimer;
 
     client.on("ready", () => {
-        //console.log("I'm here, fuck you");
+        console.log("SoundBro ready...");
         client.user.setActivity("Just sittin' there", {
             type: "PLAYING",
         });

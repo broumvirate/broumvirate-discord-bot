@@ -1,7 +1,3 @@
-require("dotenv").config();
-const Discord = require("discord.js");
-const client = new Discord.Client();
-const Twitter = require("twitter-lite");
 const fs = require("fs");
 var requireDir = require("require-dir");
 var commands = requireDir("../commands");
@@ -21,9 +17,6 @@ module.exports = (client, message) => {
     const args = message.content.split(" ");
     const command = args[0].substr(prefix.length);
     args.shift();
-    //console.log(args)
-    //console.log(command)
-    //console.log(`../commands/${command}.js`)
 
     fs.access(`./commands/${command}.js`, function (err) {
         if (err) {

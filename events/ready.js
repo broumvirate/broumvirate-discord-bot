@@ -1,5 +1,5 @@
 module.exports = (client) => {
-    //console.log("I'm here, fuck you");
+    console.log("Tweetums ready...");
     client.user.setActivity("&help", {
         type: "STREAMING",
     });
