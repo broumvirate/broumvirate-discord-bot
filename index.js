@@ -26,5 +26,5 @@ fs.readdir("./events/", (err, files) => {
 soundbro.soundbro(soundbroClient);
 
 // Login to bots
-tweetums.login(process.env.TWEEETUMS_TOKEN);
+tweetums.login(process.env.TWEETUMS_TOKEN);
 soundbroClient.login(process.env.SOUNDBRO_TOKEN);
