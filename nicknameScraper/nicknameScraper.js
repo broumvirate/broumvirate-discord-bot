@@ -3,9 +3,12 @@ const Discord = require("discord.js"),
     dotEnv = require("dotenv"),
     helpers = require("./helpers"),
     otherHelpers = require("../helpers"),
-    dayjs = require("dayjs");
+    dayjs = require("dayjs"),
+    advancedFormat = require("dayjs/plugin/advancedFormat");
 
 const client = new Discord.Client();
+
+dayjs.extend(advancedFormat);
 
 dotEnv.config({ path: "../.env" });
 mongoose.connect(process.env.LONGO_TOKEN2, {
@@ -44,17 +47,17 @@ client.once("ready", () => {
 client.login(process.env.TWEETUMS_TOKEN);
 
 function processNicks(mges) {
-    let idList = []; // List of discord IDs we've had, if we have two ids in one day we need a new entry
-    let entry = {
-        date: Date.now(),
-        nicknames: [],
-        dateString: dayjs().format("MMMM Do, YYYY"),
-    }; // Initial entry format
-
     mges.sort((a, b) => ((a[0].timestamp, b[0].timestamp) ? -1 : 1)); // Sort messages by timestamp
     let currentMges = mges.filter((m) => {
         return dayjs(m[0].timestamp).isAfter(dayjs().subtract(1, "day"));
     });
+
+    let idList = []; // List of discord IDs we've had, if we have two ids in one day we need a new entry
+    let entry = {
+        date: Date.now(),
+        nicknames: [],
+        dateString: dayjs(currentMges[0].timestamp).format("MMMM Do, YYYY"),
+    }; // Initial entry format
 
     currentMges.forEach((mg, i) => {
         let discordTag = mg[0].author.name.split("#")[1]; // Grab the 4-digit discord tag from the user
@@ -70,7 +73,7 @@ function processNicks(mges) {
                 entry = {
                     date: dayjs().add(i, "s").format(),
                     nicknames: [],
-                    dateString: dayjs().format("MMMM Do, YYYY"),
+                    dateString: dayjs(mg.timestamp).format("MMMM Do, YYYY"),
                 };
                 idList = [];
             }
