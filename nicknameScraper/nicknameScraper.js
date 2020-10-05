@@ -1,6 +1,5 @@
 const Discord = require("discord.js"),
     mongoose = require("mongoose"),
-    moment = require("moment"),
     dotEnv = require("dotenv"),
     helpers = require("./helpers"),
     otherHelpers = require("../helpers"),
@@ -42,21 +41,19 @@ client.once("ready", () => {
         });
 });
 
-client.login(process.env.BOT_TOKEN);
+client.login(process.env.TWEETUMS_TOKEN);
 
 function processNicks(mges) {
     let idList = []; // List of discord IDs we've had, if we have two ids in one day we need a new entry
     let entry = {
         date: Date.now(),
         nicknames: [],
-        dateString: moment(Date.now()).format("MMMM Do, YYYY"),
+        dateString: dayjs().format("MMMM Do, YYYY"),
     }; // Initial entry format
 
     mges.sort((a, b) => ((a[0].timestamp, b[0].timestamp) ? -1 : 1)); // Sort messages by timestamp
     let currentMges = mges.filter((m) => {
-        return moment(m[0].timestamp).isAfter(
-            moment(Date.now()).subtract(1, "day")
-        );
+        return dayjs(m[0].timestamp).isAfter(dayjs().subtract(1, "day"));
     });
 
     currentMges.forEach((mg, i) => {
@@ -71,9 +68,9 @@ function processNicks(mges) {
                 // If we've already had that boy, push the entry to the finished entry list and reset it
                 nickEntries.push(entry); // This code makes sure there are new entries if a boy comes up twice
                 entry = {
-                    date: moment(Date.now()).add(i, "s").format(),
+                    date: dayjs().add(i, "s").format(),
                     nicknames: [],
-                    dateString: moment(Date.now()).format("MMMM Do, YYYY"),
+                    dateString: dayjs().format("MMMM Do, YYYY"),
                 };
                 idList = [];
             }
@@ -87,9 +84,9 @@ function processNicks(mges) {
         }
     });
     nickEntries.push(entry); // We're out of the loop, push the last entry to the nick entries list
-
+    console.log(dayjs().format());
     if (nickEntries[0].nicknames.length > 0) {
-        // Make sure there's at least one nickname change, and insert into database
+        //Make sure there's at least one nickname change, and insert into database
         helpers.Nick.insertMany(nickEntries, function (err, newNicks) {
             if (err) {
                 console.log(err);
