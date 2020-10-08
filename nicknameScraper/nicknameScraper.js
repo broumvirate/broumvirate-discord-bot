@@ -48,8 +48,8 @@ client.login(process.env.TWEETUMS_TOKEN);
 
 function processNicks(mges) {
     mges.sort((a, b) => ((a[0].timestamp, b[0].timestamp) ? -1 : 1)); // Sort messages by timestamp
-    let currentMges = mges.filter((m) => {
-        return dayjs(m[0].timestamp).isAfter(dayjs().subtract(1, "day"));
+    let currentMges = mges.filter((mg) => {
+        return dayjs(mg.timestamp).isAfter(dayjs().subtract(1, "day"));
     });
 
     let idList = []; // List of discord IDs we've had, if we have two ids in one day we need a new entry
