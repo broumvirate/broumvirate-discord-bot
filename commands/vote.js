@@ -24,13 +24,13 @@ module.exports.command = (message, args) => {
                     if (args[0] == "yes") {
                         tweet.yes++;
                         message.reply(
-                            `you voted yes for the tweet '${currenttweet.content}'.`
+                            `you voted yes for the tweet '${tweet.content}'.`
                         );
                     }
                     if (args[0] == "no") {
                         tweet.no++;
                         message.reply(
-                            `you voted no for the tweet '${currenttweet.content}'.`
+                            `you voted no for the tweet '${tweet.content}'.`
                         );
                     }
                     //Add voter to the list of people who have voted.
