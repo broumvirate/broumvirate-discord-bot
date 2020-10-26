@@ -25,7 +25,7 @@ module.exports.command = (message, args) => {
                 console.log(err);
             });
     } else {
-        message.reply(`ain't nobody called ${args[0]}. Get outta here!`);
+        message.reply(`ain't nobody here called ${args[0]}. Get outta here!`);
     }
     return;
 };
