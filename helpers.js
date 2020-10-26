@@ -40,6 +40,16 @@ module.exports.bhotmString = function () {
     return `${days}d ${hours}h ${minutes}m ${seconds}s`;
 };
 
+module.exports.nicknameTags = {
+    Ben: "102841355239161856",
+    Jacob: "186149455907520512",
+    Alden: "202975165905108992",
+    Kai: "280712843848974336",
+    Emerson: "280700923318108160",
+    BeeEggs: "707081562692517900",
+    Miles: "253338192508485633",
+};
+
 // Function copied over from broumvirate.com codebase
 function dueMoment(incJ) {
     //Returns next due date moment
