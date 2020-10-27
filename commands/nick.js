@@ -1,7 +1,7 @@
 const helpers = require("../helpers.js");
 
 module.exports.help =
-    "**&nick** Changes someone's nickname. Usage: &nick Emerson Phlegmerson";
+    "**&nick [user] [new nickname]** Changes someone's nickname. Example: &nick Alden Big Meme-a";
 
 module.exports.command = (message, args) => {
     if (args.length < 2) {
@@ -9,13 +9,22 @@ module.exports.command = (message, args) => {
         return;
     }
 
-    if (Object.keys(helpers.nicknameTags).includes(args[0])) {
+    const desiredUser = args[0].toLowerCase();
+
+    if (Object.keys(helpers.nicknameTags).includes(desiredUser)) {
         // Do the nickname change
-        const changeId = helpers.nicknameTags[args[0]];
+        const changeId = helpers.nicknameTags[desiredUser];
         const nickname = args.slice(1).join(" ");
         message.guild.members
             .fetch(changeId)
             .then((member) => {
+                if (desiredUser === "ben") {
+                    member.user.send(
+                        `Please change your nickname to: "${nickname}"`
+                    );
+                    message.reply("PM sent to Ben to request nickname change.");
+                    return;
+                }
                 return member.setNickname(nickname);
             })
             .catch((err) => {
