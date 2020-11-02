@@ -47,8 +47,14 @@ client.once("ready", () => {
 client.login(process.env.TWEETUMS_TOKEN);
 
 function processNicks(mges) {
+    if (mges.length == 0) {
+        console.log("No new nicknames");
+        process.exit(0);
+    }
+
     mges.sort((a, b) => ((a[0].timestamp, b[0].timestamp) ? -1 : 1)); // Sort messages by timestamp
 
+    // Filter down to just today's nickname changes.
     let currentMges = mges.filter((mg) => {
         return dayjs(mg[0].timestamp).isAfter(dayjs().subtract(1, "day"));
     });
@@ -95,7 +101,7 @@ function processNicks(mges) {
             if (err) {
                 console.log(err);
             } else {
-                console.log(newNicks);
+                console.log(nickEntries);
             }
             process.exit(0);
         });
