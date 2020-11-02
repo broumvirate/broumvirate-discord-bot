@@ -31,6 +31,12 @@ module.exports.command = (message, args) => {
                     );
                     message.reply(`user not in list, changed nickname anyway.`);
                 });
+
+                if (members.length === 0) {
+                    message.reply(
+                        `ain't nobody here called ${args[0]}. Get outta here!`
+                    );
+                }
             })
             .catch(() => {
                 message.reply(
