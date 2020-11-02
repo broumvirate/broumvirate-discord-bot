@@ -10,31 +10,54 @@ module.exports.command = (message, args) => {
     }
 
     const desiredUser = args[0].toLowerCase();
+    const nickname = args.slice(1).join(" ");
 
     if (Object.keys(helpers.nicknameTags).includes(desiredUser)) {
-        // Do the nickname change
+        // If we have a saved name for this user in the helper file, change their nickname
         const changeId = helpers.nicknameTags[desiredUser];
-        const nickname = args.slice(1).join(" ");
-        message.guild.members
-            .fetch(changeId)
-            .then((member) => {
-                if (desiredUser === "ben") {
-                    member.user.send(
-                        `Please change your nickname to: "${nickname}"`
-                    );
-                    message.reply("PM sent to Ben to request nickname change.");
-                    return;
-                }
-                return member.setNickname(nickname);
-            })
-            .catch((err) => {
-                message.reply(
-                    "physically unable to change nickname. <:bencry:697944953879527464>"
-                );
-                console.log(err);
-            });
+        changeNickname(changeId, desiredUser, nickname, message);
     } else {
-        message.reply(`ain't nobody here called ${args[0]}. Get outta here!`);
+        // Else, do a search on the username
+        message.guild.members
+            .fetch({ query: args[0], limit: 1 })
+            .then((members) => {
+                // Then change the nickname. We have to do a foreach because i forget how maps work
+                members.forEach((member) => {
+                    changeNickname(
+                        member.user.id,
+                        desiredUser,
+                        nickname,
+                        message
+                    );
+                    message.reply(`user not in list, changed nickname anyway.`);
+                });
+            })
+            .catch(() => {
+                message.reply(
+                    `ain't nobody here called ${args[0]}. Get outta here!`
+                );
+            });
     }
     return;
 };
+
+function changeNickname(userId, desiredUser, nickname, message) {
+    message.guild.members
+        .fetch(userId)
+        .then((member) => {
+            if (desiredUser === "ben") {
+                member.user.send(
+                    `Please change your nickname to: "${nickname}"`
+                );
+                message.reply("PM sent to Ben to request nickname change.");
+                return;
+            }
+            return member.setNickname(nickname);
+        })
+        .catch((err) => {
+            message.reply(
+                "physically unable to change nickname. <:bencry:697944953879527464>"
+            );
+            console.log(err);
+        });
+}

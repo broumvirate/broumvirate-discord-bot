@@ -48,6 +48,7 @@ module.exports.nicknameTags = {
     emerson: "280700923318108160",
     beeeggs: "707081562692517900",
     miles: "253338192508485633",
+    jack: "335522692805558273",
 };
 
 // Function copied over from broumvirate.com codebase
