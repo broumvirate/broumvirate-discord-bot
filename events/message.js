@@ -9,10 +9,10 @@ module.exports = (client, message) => {
     if (!message.content.startsWith(prefix) || message.author.bot) {
         return;
     }
-    if (message.author.id == 280700923318108160) {
-        message.channel.send("Error: User is Emerson");
-        return;
-    }
+    // if (message.author.id == 280700923318108160) { // Emerson
+    //     message.channel.send("Error: User is Emerson");
+    //     return;
+    // }
     //Break message into component parts and pass to relevant module.
     const args = message.content.split(" ");
     const command = args[0].substr(prefix.length);

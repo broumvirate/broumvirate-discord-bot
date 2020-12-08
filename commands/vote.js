@@ -20,14 +20,15 @@ module.exports.command = (message, args) => {
                         return acc;
                     } else {
                         //Assign correct vote boolean.
+                        if (args[0] !== "yes" && args[0] !== "no") {
+                            return acc;
+                        }
                         if (args[0] == "yes") {
                             tweet.yes++;
-                            acc++;
-                        }
-                        if (args[0] == "no") {
+                        } else if (args[0] == "no") {
                             tweet.no++;
-                            acc++;
                         }
+                        acc++;
                         //Add voter to the list of people who have voted.
                         tweet.voted.push(message.author.id);
                         tweet.save().then((tweet) => {
@@ -55,7 +56,12 @@ module.exports.command = (message, args) => {
                     if (tweet.voted.includes(message.author.id)) {
                         message.reply("you can't vote for a tweet twice.");
                     } else {
-                        //Assign correct vote boolean.
+                        //Assign correct vote boolean
+                        if (args[0] !== "yes" && args[0] !== "no") {
+                            return message.reply(
+                                "that's not how you use that. Dumbass."
+                            );
+                        }
                         if (args[0] == "yes") {
                             tweet.yes++;
                             message.reply(

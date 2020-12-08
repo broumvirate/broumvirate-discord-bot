@@ -33,9 +33,7 @@ module.exports.command = (message, args) => {
                 });
 
                 if (members.size == 0) {
-                    message.reply(
-                        `ain't nobody here called ${args[0]}. Get outta here!`
-                    );
+                    throw new Error();
                 }
             })
             .catch(() => {

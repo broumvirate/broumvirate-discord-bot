@@ -41,7 +41,6 @@ module.exports = function (client) {
                                 // Start five minute timer to leave the channel
                                 clearTimeout(leaveTimer);
                                 leaveTimer = setTimeout(() => {
-                                    message.channel.send("Bye bye!");
                                     connection.disconnect();
                                 }, 300000);
                             })
