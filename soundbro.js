@@ -14,7 +14,7 @@ module.exports = function (client) {
     client.on("ready", () => {
         console.log("SoundBro ready...");
         client.user.setActivity(
-            activityOptions[Math.floor(Math.random * activityOptions.length)],
+            activityOptions[Math.floor(Math.random() * activityOptions.length)],
             {
                 type: "PLAYING",
             }
