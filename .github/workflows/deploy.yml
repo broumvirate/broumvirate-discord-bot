@@ -27,4 +27,4 @@ jobs:
                   USERNAME: ${{ secrets.USERNAME }}
                   PORT: ${{ secrets.PORT }}
                   KEY: ${{ secrets.SSHKEY }}
-                  script: /home/ben/discord/start.sh
+                  script: chmod +x /home/ben/discord/start.sh; ./home/ben/discord/start.sh
