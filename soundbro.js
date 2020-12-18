@@ -4,7 +4,7 @@ module.exports = function (client) {
     let leaveTimer;
     const activityOptions = [
         "with himself",
-        "&4 repeatedly",
+        "?4 repeatedly",
         "Lost in the Woods",
         "slinkycar",
         "Just sittin' there",
