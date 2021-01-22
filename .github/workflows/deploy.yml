@@ -20,7 +20,7 @@ jobs:
                   source: "."
                   target: "/home/ben/discord"
 
-            - name: Executing remote  command
+            - name: Run startup script
               uses: appleboy/ssh-action@master
               with:
                   host: ${{ secrets.HOST }}
