@@ -41,14 +41,19 @@ module.exports.bhotmString = function () {
 };
 
 module.exports.nicknameTags = {
+    // Core broumvirate
     ben: "102841355239161856",
     jacob: "186149455907520512",
     alden: "202975165905108992",
     kai: "280712843848974336",
     emerson: "280700923318108160",
-    beeeggs: "707081562692517900",
+
+    // The miles tier
     miles: "253338192508485633",
+    beeeggs: "707081562692517900",
     jack: "335522692805558273",
+    sandpaper: "335522692805558273", // same as jack
+    johnhenry: "235580828007137281",
 };
 
 // Function copied over from broumvirate.com codebase

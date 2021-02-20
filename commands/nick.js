@@ -21,7 +21,10 @@ module.exports.command = (message, args) => {
         message.guild.members
             .fetch({ query: args[0], limit: 1 })
             .then((members) => {
-                // Then change the nickname. We have to do a foreach because i forget how maps work
+                if (members.size == 0) {
+                    throw new Error();
+                }
+                
                 members.forEach((member) => {
                     changeNickname(
                         member.user.id,
@@ -31,10 +34,6 @@ module.exports.command = (message, args) => {
                     );
                     message.reply(`user not in list, changed nickname anyway.`);
                 });
-
-                if (members.size == 0) {
-                    throw new Error();
-                }
             })
             .catch(() => {
                 message.reply(
