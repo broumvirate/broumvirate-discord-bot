@@ -8,6 +8,9 @@ module.exports = function (client) {
         "Lost in the Woods",
         "slinkycar",
         "Just sittin' there",
+        "Minecraft",
+        "the mother of all sax solos",
+        "Rock Game"
     ];
 
     // Set status on bot ready
@@ -76,7 +79,7 @@ function getList(message) {
                 .filter((el) => el.split(".")[1] == "mp3")
                 .map((el) => el.split(".")[0])
                 .sort((a, b) => a - b);
-            message.channel.send("Listing of all SoundBro options:");
+            message.channel.send("All SoundBro options:");
             message.channel.send(sounds.join(", "));
         }
     });

@@ -17,19 +17,19 @@ function fixSort() {
 }
 
 module.exports.checkvotes = async (message, tweet) => {
-    if(tweet.canTweet)
-    {
-        if (tweet.yes >= 3) {
+    if (tweet.yes >= 3) {
+        if(tweet.canTweet)
+        {
             await twitterhandler.tweet(message, tweet);
             tweet.remove(fixSort);
         }
-        if (tweet.no >= 3) {
-            message.channel.send(`'${tweet.content}' wasn't funny enough to post.`);
-            tweet.remove(fixSort);
+        else{
+            message.channel.send(`Sorry, not allowed to tweet that.`);
         }
     }
-    else{
-        message.channel.send(`Not allowed to tweet that.`);
+    if (tweet.no >= 3) {
+        message.channel.send(`'${tweet.content}' wasn't funny enough to post.`);
+        tweet.remove(fixSort);
     }
 
 };
