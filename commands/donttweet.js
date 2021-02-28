@@ -1,6 +1,6 @@
 const tweetindex = require("../schema/tweetindex.js");
 
-module.exports.help = "**&tweet:** Post a tweet to the index.";
+module.exports.help = "**&donttweet:** Post a tweet to the index that we aren't allowed to tweet.";
 
 module.exports.command = (message, args) => {
     //Checks if message should be processed.
@@ -23,11 +23,12 @@ module.exports.command = (message, args) => {
                 no: 0,
                 voted: [message.author.id],
                 sort: id,
+                canTweet: false
             });
         })
         .then((tweet) => {
             message.channel.send(
-                `${message.author.username} would like to tweet '${tweet.content}'. Use &vote [yes/no] ${tweet.sort} to vote.`
+                `${message.author.username} would like to not tweet '${tweet.content}'. Use &vote [yes/no] ${tweet.sort} to vote.`
             );
             console.log("Tweeted", tweet.content);
         })
