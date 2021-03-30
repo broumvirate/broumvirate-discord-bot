@@ -29,9 +29,9 @@ module.exports.command = (message, args) => {
             message.channel.send(
                 `${message.author.username} would like to not tweet '${tweet.content}'. Use &vote [yes/no] ${tweet.sort} to vote.`
             );
-            console.log("Tweeted", tweet.content);
         })
         .catch((err) => {
+            message.channel.send("OH NO.")
             console.log(err);
         });
 };

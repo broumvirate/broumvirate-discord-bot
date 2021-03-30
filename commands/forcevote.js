@@ -3,12 +3,7 @@ const longoman = require("../helpers.js");
 const voter = require('../tweetumsVoter.js');
 
 module.exports.command = (message, args) => {
-    if (
-        message.author.id != longoman.nicknameTags.jacob &&
-        message.author.id != longoman.nicknameTags.ben
-    ) {
-        return;
-    } else {
+    if (longoman.isAdmin(message)){
         tweetindex
             .findOne({ sort: args[0] })
             .then((currentTweet) => {

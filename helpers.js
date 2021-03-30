@@ -1,19 +1,6 @@
 const dayjs = require("dayjs");
 
-module.exports.bhotmString = function () {
-    let distance = dueMoment().diff(dayjs());
-
-    const days = Math.floor(distance / (1000 * 60 * 60 * 24));
-    const hours = Math.floor(
-        (distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)
-    );
-    const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-    const seconds = Math.floor((distance % (1000 * 60)) / 1000);
-
-    return `${days}d ${hours}h ${minutes}m ${seconds}s`;
-};
-
-module.exports.nicknameTags = {
+const nicknameTags = {
     // Core broumvirate
     ben: "102841355239161856",
     jacob: "186149455907520512",
@@ -27,7 +14,25 @@ module.exports.nicknameTags = {
     jack: "335522692805558273",
     sandpaper: "335522692805558273", // same as jack
     johnhenry: "235580828007137281",
+}
+
+const bhotmString = () => {
+    let distance = dueMoment().diff(dayjs());
+
+    const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+    const hours = Math.floor(
+        (distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)
+    );
+    const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+    const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+    return `${days}d ${hours}h ${minutes}m ${seconds}s`;
 };
+
+const isAdmin = (message) => {
+    const admins = [nicknameTags.ben, nicknameTags.jacob];
+    return admins.includes(message.author.id);
+}
 
 // Function copied over from broumvirate.com codebase
 function dueMoment(incJ) {
@@ -48,3 +53,5 @@ function dueMoment(incJ) {
     }
     return dueDate;
 }
+
+module.exports = {nicknameTags, isAdmin, bhotmString};

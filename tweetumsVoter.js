@@ -5,15 +5,7 @@ const twitterhandler = require("./twitterhandler.js");
 const yes = ['yes', 't'];
 const no = ['no', 'k'];
 
-function voteToBool(arg)
-{
-    if(yes.includes(arg)) return true;
-    if(no.includes(arg)) return false;
-    return null;
-}
-
 async function vote(message, voteArg, tweet) {
-
     // Checking to see if they actually voted right
     const vote = voteToBool(voteArg);
     const id = message.author.id;
@@ -71,6 +63,13 @@ async function checkVotes(message, tweet)
         message.channel.send(`'${tweet.content}' wasn't funny enough to post.`);
         tweet.remove(fixSort);
     }
+}
+
+function voteToBool(arg)
+{
+    if(yes.includes(arg)) return true;
+    if(no.includes(arg)) return false;
+    return null;
 }
 
 function fixSort() {

@@ -23,7 +23,7 @@ module.exports.command = (message, args) => {
         return;
     })
     .then(() => {
-        tweetindex
+        return tweetindex
             .countDocuments()
             .then((id) => {
                 return tweetindex.create({
@@ -37,14 +37,14 @@ module.exports.command = (message, args) => {
                 message.channel.send(
                     `${message.author.username} would like to tweet '${tweet.content}'. Use &vote [yes/no] ${tweet.sort} to vote.`
                 );
-                console.log("Tweeted", tweet.content);
             })
-            .catch((err) => {
-                console.log(err);
-            });
     })
-    .catch(() => {
-        message.reply("tweet already exists, commie.")
+    .catch((err) => {
+        if(err == 'Tweet already exists')
+        {
+            message.reply("tweet already exists, commie.")
+        }
+        else message.channel.send("I can't do it.")
     })
 
 };
