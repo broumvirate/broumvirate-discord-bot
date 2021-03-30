@@ -11,7 +11,7 @@ module.exports.command = (message) => {
             } else {
                 let list = "";
                 for (let i = 0; i < tweets.length; i++) {
-                    list = `${list}\n${tweets[i].sort}: '${tweets[i].content}' [Yes: ${tweets[i].yes}/3] [No: ${tweets[i].no}/3]`;
+                    list = `${list}\n${tweets[i].sort}: '${tweets[i].content}' [Yes: ${tweets[i].yes.length}/3] [No: ${tweets[i].no.length}/3]`;
                 }
                 message.channel.send(list);
             }

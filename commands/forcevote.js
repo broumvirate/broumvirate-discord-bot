@@ -1,5 +1,6 @@
 const tweetindex = require("../schema/tweetindex.js");
 const longoman = require("../helpers.js");
+const voter = require('../tweetumsVoter.js');
 
 module.exports.command = (message, args) => {
     if (
@@ -20,7 +21,7 @@ module.exports.command = (message, args) => {
                 }
             })
             .then((currentTweet) => {
-                longoman.checkvotes(message, currentTweet);
+                voter.checkVotes(message, currentTweet);
             })
             .catch((err) => {
                 console.log(err);

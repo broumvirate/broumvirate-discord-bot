@@ -19,9 +19,8 @@ module.exports.command = (message, args) => {
         .then((id) => {
             return tweetindex.create({
                 content: tweet,
-                yes: 1,
-                no: 0,
-                voted: [message.author.id],
+                yes: [message.author.id],
+                no: [],
                 sort: id,
                 canTweet: false
             });

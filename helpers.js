@@ -1,38 +1,4 @@
-const longo = require("mongoose");
-const tweetindex = require("./schema/tweetindex.js");
-const twitterhandler = require("./twitterhandler.js");
 const dayjs = require("dayjs");
-
-function fixSort() {
-    tweetindex.find({}, async function (err, tweets) {
-        if (err) {
-            console.log(err);
-        } else {
-            for (var i = 0; i < tweets.length; i++) {
-                tweets[i].sort = i;
-                tweets[i].save();
-            }
-        }
-    });
-}
-
-module.exports.checkvotes = async (message, tweet) => {
-    if (tweet.yes >= 3) {
-        if(tweet.canTweet)
-        {
-            await twitterhandler.tweet(message, tweet);
-            tweet.remove(fixSort);
-        }
-        else{
-            message.channel.send(`Sorry, not allowed to tweet that.`);
-        }
-    }
-    if (tweet.no >= 3) {
-        message.channel.send(`'${tweet.content}' wasn't funny enough to post.`);
-        tweet.remove(fixSort);
-    }
-
-};
 
 module.exports.bhotmString = function () {
     let distance = dueMoment().diff(dayjs());

@@ -14,24 +14,37 @@ module.exports.command = (message, args) => {
     //Consolidates args into string, creates a tweet in the database.
     const tweet = args.join(" ");
 
-    tweetindex
-        .countDocuments()
-        .then((id) => {
-            return tweetindex.create({
-                content: tweet,
-                yes: 1,
-                no: 0,
-                voted: [message.author.id],
-                sort: id,
+    tweetindex.find({content:tweet})
+    .then((res) => {
+        if(res.length > 0)
+        {
+            throw 'Tweet already exists';
+        }
+        return;
+    })
+    .then(() => {
+        tweetindex
+            .countDocuments()
+            .then((id) => {
+                return tweetindex.create({
+                    content: tweet,
+                    yes: [message.author.id],
+                    no: [],
+                    sort: id,
+                });
+            })
+            .then((tweet) => {
+                message.channel.send(
+                    `${message.author.username} would like to tweet '${tweet.content}'. Use &vote [yes/no] ${tweet.sort} to vote.`
+                );
+                console.log("Tweeted", tweet.content);
+            })
+            .catch((err) => {
+                console.log(err);
             });
-        })
-        .then((tweet) => {
-            message.channel.send(
-                `${message.author.username} would like to tweet '${tweet.content}'. Use &vote [yes/no] ${tweet.sort} to vote.`
-            );
-            console.log("Tweeted", tweet.content);
-        })
-        .catch((err) => {
-            console.log(err);
-        });
+    })
+    .catch(() => {
+        message.reply("tweet already exists, commie.")
+    })
+
 };
