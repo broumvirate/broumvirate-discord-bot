@@ -85,4 +85,4 @@ function fixSort() {
     });
 }
 
-module.exports = {vote, checkVotes}
+module.exports = {vote, checkVotes, fixSort}
