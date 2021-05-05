@@ -45,7 +45,7 @@ module.exports = function (client) {
                 fs.access(`sounds/${fileNum}.mp3`, (err) => {
                     if (err) {
                         message.reply(
-                            `fuck off. ${fileNum} is not a valid sound file.`
+                            `, it's not.`
                         );
                     } else {
                         // Join voice channel, play sound file
