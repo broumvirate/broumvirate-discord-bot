@@ -17,7 +17,7 @@ async function voteAll(message, voteArg) {
     }
 
     try {
-        const tweets = await tweetindex.find({yes: {$not: {$elemMatch: {id}}}, no:{ $not: {$elemMatch: {id}}}});
+        const tweets = await tweetindex.find({$nor: [{yes: id}, {no :id} ]});
 
         message.reply(`trying to vote ${voteArg} for ${tweets.length} tweets`);
         // Vote now
@@ -26,6 +26,7 @@ async function voteAll(message, voteArg) {
             for(let t of tweets)
             {
                 t.yes.push(id);
+                t.save();
                 checkVotes(message, t);
             }
         }
@@ -34,6 +35,7 @@ async function voteAll(message, voteArg) {
             for(let t of tweets)
             {
                 t.no.push(id);
+                t.save();
                 checkVotes(message, t);
             }
         }
