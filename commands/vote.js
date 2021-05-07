@@ -13,15 +13,8 @@ module.exports.command = (message, args) => {
     //Checks if the tweet id exists.
     if (args[1] === "all") {
         // Vote all
-        tweetindex
-            .find({})
-            .then((tweets) => {
-                for(tweet of tweets)
-                {
-                    voter.vote(message, args[0], tweet);
-                }
-            })
-            .catch((err) => console.log(err));
+        voter.voteAll(message, args[0]);
+            
     } else {
         tweetindex
             .findOne({ sort: args[1] })

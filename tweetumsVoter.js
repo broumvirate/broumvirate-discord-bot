@@ -5,11 +5,50 @@ const twitterhandler = require("./twitterhandler.js");
 const yes = ['yes', 't'];
 const no = ['no', 'k'];
 
-async function vote(message, voteArg, tweet) {
+async function voteAll(message, voteArg) {
     // Checking to see if they actually voted right
     const vote = voteToBool(voteArg);
     const id = message.author.id;
     console.log(vote, voteArg);
+    if(vote === null)
+    {
+        message.reply("that's not how you do that.")
+        return;
+    }
+
+    try {
+        const tweets = await tweetindex.find({yes: {$not: {$elemMatch: {id}}}, no:{ $not: {$elemMatch: {id}}}});
+
+        message.reply(`trying to vote ${voteArg} for ${tweets.length} tweets`);
+        // Vote now
+        if(vote === true)
+        {
+            for(let t of tweets)
+            {
+                t.yes.push(id);
+                checkVotes(message, t);
+            }
+        }
+        else if (vote === false)
+        {
+            for(let t of tweets)
+            {
+                t.no.push(id);
+                checkVotes(message, t);
+            }
+        }
+    }
+    catch (err){
+        console.log(err);
+        message.reply("I can't do it.")
+    }
+}
+
+async function vote(message, voteArg, tweet)
+{
+    // Checking to see if they actually voted right
+    const vote = voteToBool(voteArg);
+    const id = message.author.id;
     if(vote === null)
     {
         message.reply("that's not how you do that.")
@@ -85,4 +124,4 @@ function fixSort() {
     });
 }
 
-module.exports = {vote, checkVotes, fixSort}
+module.exports = {vote, voteAll, checkVotes, fixSort}
