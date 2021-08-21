@@ -17,7 +17,7 @@ async function voteAll(message, voteArg) {
     }
 
     try {
-        const tweets = await tweetindex.find({$nor: [{yes: id}, {no :id} ], isArchived: false});
+        const tweets = await tweetindex.find({$nor: [{yes: id}, {no :id} ], $or:[{isArchived: false}, {isArchived: {$exists: false}}] });
 
         message.reply(`trying to vote ${voteArg} for ${tweets.length} tweets`);
         // Vote now
@@ -114,7 +114,7 @@ function voteToBool(arg)
 }
 
 function fixSort() {
-    tweetindex.find({isArchived: false}, async function (err, tweets) {
+    tweetindex.find({$or:[{isArchived: false}, {isArchived: {$exists: false}}]}, async function (err, tweets) {
         if (err) {
             console.log(err);
         } else {

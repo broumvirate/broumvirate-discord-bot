@@ -5,6 +5,7 @@ const voter = require("../tweetumsVoter");
 module.exports.command = async (message, args) => {
     if(parseInt(args[0]) && longoman.isAdmin(message))
     {
+        if(parseInt(args[0]) < 0 ) return;
         const deleted = await tweetindex.deleteOne({
             sort: parseInt(args[0]),
         });

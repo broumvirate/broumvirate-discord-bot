@@ -4,7 +4,7 @@ const longoman = require("../helpers.js");
 module.exports.command = (message, args) => {
     //Deletes all tweets, maybe.
     if (longoman.isAdmin(message)) {
-        tweetindex.deleteMany({}, function (err) {
+        tweetindex.deleteMany({$or:[{isArchived: false}, {isArchived: {$exists: false}}]}, function (err) {
             console.log(err);
         });
     }

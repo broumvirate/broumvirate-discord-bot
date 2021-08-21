@@ -5,7 +5,7 @@ module.exports.help = "**&list:** Lists all tweets.";
 
 module.exports.command = (message) => {
     tweetindex
-        .find({isArchived: false})
+        .find({$or:[{isArchived: false}, {isArchived: {$exists: false}}]})
         .then((tweets) => {
             if (tweets.length == 0) {
                 message.reply(`there are no tweets currently in the index.`);

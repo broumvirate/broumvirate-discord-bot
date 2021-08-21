@@ -4,6 +4,8 @@ const voter = require('../tweetumsVoter.js');
 
 module.exports.command = (message, args) => {
     if (longoman.isAdmin(message)){
+        if(parseInt(args[0]) < 0) return;
+
         tweetindex
             .findOne({ sort: args[0] })
             .then((currentTweet) => {
