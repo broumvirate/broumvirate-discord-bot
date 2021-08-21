@@ -24,7 +24,7 @@ module.exports.command = (message, args) => {
     })
     .then(() => {
         return tweetindex
-            .countDocuments()
+            .countDocuments({$or:[{isArchived: false}, {isArchived: {$exists: false}}]})
             .then((id) => {
                 return tweetindex.create({
                     content: tweet,

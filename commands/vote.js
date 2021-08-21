@@ -16,10 +16,11 @@ module.exports.command = (message, args) => {
         voter.voteAll(message, args[0]);
             
     } else {
-        if(args[1] === -1) return;
+        if(parseInt(args[1]) === -1) return;
         tweetindex
             .findOne({ sort: args[1] })
             .then((tweet) => {
+                if(tweet.sort == -1) return;
                 return voter.vote(message, args[0], tweet);
             })
             .catch((err) => console.log(err));
