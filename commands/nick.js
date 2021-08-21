@@ -5,7 +5,7 @@ module.exports.help =
 
 module.exports.command = (message, args) => {
     if (args.length < 2) {
-        message.reply("that don't work, buddy");
+        message.reply("that don't work. Sneffo.");
         return;
     }
 
@@ -37,7 +37,7 @@ module.exports.command = (message, args) => {
             })
             .catch(() => {
                 message.reply(
-                    `ain't nobody here called ${args[0]}. Get outta here!`
+                    `ain't nobody here called ${args[0]}. Get outta here, or I'm gonna change your name to Alden!`
                 );
             });
     }

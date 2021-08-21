@@ -2,8 +2,8 @@ const longo = require("mongoose");
 const tweetindex = require("./schema/tweetindex.js");
 const twitterhandler = require("./twitterhandler.js");
 
-const yes = ['yes', 't'];
-const no = ['no', 'k'];
+const yes = ['yes', 't', 'y'];
+const no = ['no', 'k', 'n'];
 
 async function voteAll(message, voteArg) {
     // Checking to see if they actually voted right
@@ -17,7 +17,7 @@ async function voteAll(message, voteArg) {
     }
 
     try {
-        const tweets = await tweetindex.find({$nor: [{yes: id}, {no :id} ]});
+        const tweets = await tweetindex.find({$nor: [{yes: id}, {no :id} ], isArchived: false});
 
         message.reply(`trying to vote ${voteArg} for ${tweets.length} tweets`);
         // Vote now
@@ -91,7 +91,7 @@ async function vote(message, voteArg, tweet)
 async function checkVotes(message, tweet)
 {
     if (tweet.yes.length >= 3) {
-        if(tweet.canTweet)
+        if(tweet.canTweet && !tweet.isArchived)
         {
             await twitterhandler.tweet(message, tweet);
             tweet.remove(fixSort);
@@ -114,7 +114,7 @@ function voteToBool(arg)
 }
 
 function fixSort() {
-    tweetindex.find({}, async function (err, tweets) {
+    tweetindex.find({isArchived: false}, async function (err, tweets) {
         if (err) {
             console.log(err);
         } else {
@@ -126,4 +126,18 @@ function fixSort() {
     });
 }
 
-module.exports = {vote, voteAll, checkVotes, fixSort}
+function archiveTweets(message, tweets)
+{
+    var archiveableTweets = tweets.filter((t) => (t.canTweet == false && t.isArchived == false));
+    if(archiveableTweets.length < 20) return;
+    for(var tweet of tweets)
+    {
+        tweet.isArchived = true;
+        tweet.sort = -1;
+        tweet.save();
+    }
+    fixSort();
+    message.channel.send("20 donttweets added to the archive. Use &archive 1 to see archived tweets.")
+}
+
+module.exports = {vote, voteAll, checkVotes, fixSort, archiveTweets}

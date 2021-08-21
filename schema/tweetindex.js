@@ -5,7 +5,8 @@ let tweetSchema = new longo.Schema({
     yes: Array,
     no: Array,
     sort: Number,
-    canTweet: { type: Boolean, default: true }
+    canTweet: { type: Boolean, default: true },
+    isArchived: { type: Boolean, default: false }
 })
 
 module.exports = longo.model("tweetIndex", tweetSchema);  
