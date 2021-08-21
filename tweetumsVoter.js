@@ -114,12 +114,20 @@ function voteToBool(arg)
 }
 
 function fixSort() {
-    tweetindex.find({$or:[{isArchived: false}, {isArchived: {$exists: false}}]}, async function (err, tweets) {
+    tweetindex.find({}, async function (err, tweets) {
         if (err) {
             console.log(err);
         } else {
+            let j = 0;
             for (var i = 0; i < tweets.length; i++) {
-                tweets[i].sort = i;
+                if(tweets[i].isArchived)
+                {
+                    tweets[i].sort = -1;
+                }
+                else {
+                    tweets[i].sort = j;
+                    j++
+                }
                 tweets[i].save();
             }
         }
