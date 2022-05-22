@@ -15,7 +15,7 @@ module.exports.command = (message, args) => {
     const tweet = args.join(" ");
 
     tweetindex
-        .countDocuments()
+        .countDocuments({$or:[{isArchived: false}, {isArchived: {$exists: false}}]})
         .then((id) => {
             return tweetindex.create({
                 content: tweet,
