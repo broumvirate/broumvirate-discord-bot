@@ -18,7 +18,7 @@ module.exports.command = (message, args) => {
     } 
     else if (args[1] === "that") {
         tweetindex
-            .find([{isArchived: false}, {isArchived: {$exists: false}}])
+            .find({$or: [{isArchived: false}, {isArchived: {$exists: false}}]})
             .sort({"sort": -1})
             .limit(1)
             .then((tweets) => {
