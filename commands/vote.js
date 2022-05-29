@@ -15,7 +15,19 @@ module.exports.command = (message, args) => {
         // Vote all
         voter.voteAll(message, args[0]);
             
-    } else {
+    } 
+    else if (args[1] === "that") {
+        tweetindex
+            .find([{isArchived: false}, {isArchived: {$exists: false}}])
+            .sort({"sort": -1})
+            .limit(1)
+            .then((tweets) => {
+                if(tweets[0].sort == -1) return;
+                return voter.vote(message, args[0], tweets[0]);
+            })
+            .catch((err) => console.log(err));
+    }
+    else {
         if(parseInt(args[1]) === -1) return;
         tweetindex
             .findOne({ sort: args[1] })
