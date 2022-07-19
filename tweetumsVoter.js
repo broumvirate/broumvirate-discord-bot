@@ -138,7 +138,7 @@ function archiveTweets(message, tweets)
 {
     var archiveableTweets = tweets.filter((t) => (t.canTweet == false && t.isArchived == false));
     if(archiveableTweets.length < 20) return;
-    for(var tweet of tweets)
+    for(var tweet of archiveableTweets)
     {
         tweet.isArchived = true;
         tweet.sort = -1;

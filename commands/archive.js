@@ -8,14 +8,23 @@ module.exports.command = (message, args) => {
         .then((tweets) => {
             if(parseInt(args[0]) !== NaN)
             {
-                let startingTweet = (args[0] - 1) * 20;
-                let endingTweet = startingTweet + 20;
+                const index = parseInt(args[0]);
+                const chunkSize = 20;
+                const chunks = []
+                for(let i = 0; i < tweets.length; i += chunkSize)
+                {
+                    chunks.push(tweets.slice(i, i + chunkSize));
+                }
+                if(index >= chunks.length)
+                {
+                    message.reply("We don't have that many archived tweets, Mr. Crik.");
+                }
 
-                var selectedTweets = tweets.slice(startingTweet, endingTweet);
+                var selectedTweets = chunks[index];
                 if(selectedTweets.length == 0) return;
 
                 let list = "";
-                for (let i = 0; i < tweets.length; i++) {
+                for (let i = 0; i < selectedTweets.length; i++) {
                     list = `${list}\n${i}: '${tweets[i].content}' (Y ${tweets[i].yes.length}, N ${tweets[i].no.length})`;
                 }
                 message.channel.send(list);
