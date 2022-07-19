@@ -19,7 +19,7 @@ module.exports.command = (message, args) => {
                       resultArray[chunkIndex].push(item)
                     
                       return resultArray
-                })
+                }, [])
                 if(index >= chunks.length)
                 {
                     message.reply("We don't have that many archived tweets, Mr. Crik.");
@@ -29,8 +29,14 @@ module.exports.command = (message, args) => {
                 if(selectedTweets.length == 0) return;
 
                 let list = "";
+                const startingIndex = (index == 0) ? 0 : chunks.slice(0, index).reduce((val, arr) => {
+                    val += arr.length;
+                    return val;
+                }, 0);
+
                 for (let i = 0; i < selectedTweets.length; i++) {
-                    list = `${list}\n${i}: '${tweets[i].content}' (Y ${tweets[i].yes.length}, N ${tweets[i].no.length})`;
+                    let twt = selectedTweets[i]
+                    list = `${list}\n${startingIndex + i}: '${twt.content}' (Y ${twt.yes.length}, N ${twt.no.length})`;
                 }
                 message.channel.send(list);
             }
