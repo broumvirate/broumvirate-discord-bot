@@ -10,17 +10,22 @@ module.exports.command = (message, args) => {
             {
                 const index = parseInt(args[0]);
                 const chunkSize = 20;
-                const chunks = []
-                for(let i = 0; i < tweets.length; i += chunkSize)
-                {
-                    chunks.push(tweets.slice(i, i + chunkSize));
-                }
+                const chunks = tweets.reduce((resultArray, item, index) => {
+                    const chunkIndex = Math.floor(index/chunkSize);
+                    if(!resultArray[chunkIndex]) {
+                        resultArray[chunkIndex] = [] // start a new chunk
+                    }
+                    
+                      resultArray[chunkIndex].push(item)
+                    
+                      return resultArray
+                })
                 if(index >= chunks.length)
                 {
                     message.reply("We don't have that many archived tweets, Mr. Crik.");
                 }
 
-                var selectedTweets = chunks[index];
+                var selectedTweets = chunks[index]
                 if(selectedTweets.length == 0) return;
 
                 let list = "";
