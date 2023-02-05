@@ -5,6 +5,41 @@ const twitterhandler = require("./twitterhandler.js");
 const yes = ['yes', 't', 'y'];
 const no = ['no', 'k', 'n'];
 
+function tweetText(message, tweet) {
+    tweetindex.find({content:tweet})
+    .then((res) => {
+        if(res.length > 0)
+        {
+            throw 'Tweet already exists';
+        }
+        return;
+    })
+    .then(() => {
+        return tweetindex
+            .countDocuments({$or:[{isArchived: false}, {isArchived: {$exists: false}}]})
+            .then((id) => {
+                return tweetindex.create({
+                    content: tweet,
+                    yes: [message.author.id],
+                    no: [],
+                    sort: id,
+                });
+            })
+            .then((tweet) => {
+                message.channel.send(
+                    `${message.author.username} would like to tweet '${tweet.content}'. Use &vote [yes/no] ${tweet.sort} to vote.`
+                );
+            })
+    })
+    .catch((err) => {
+        if(err == 'Tweet already exists')
+        {
+            message.reply("tweet already exists, commie.")
+        }
+        else message.channel.send("I can't do it.")
+    })
+}
+
 async function voteAll(message, voteArg) {
     // Checking to see if they actually voted right
     const vote = voteToBool(voteArg);
@@ -148,4 +183,4 @@ function archiveTweets(message, tweets)
     message.channel.send("20 donttweets added to the archive. Use &archive 1 to see archived tweets.")
 }
 
-module.exports = {vote, voteAll, checkVotes, fixSort, archiveTweets}
+module.exports = {tweetText, vote, voteAll, checkVotes, fixSort, archiveTweets}

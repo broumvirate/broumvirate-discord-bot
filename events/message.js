@@ -22,7 +22,7 @@ module.exports = (client, message) => {
         if (err) {
             // File does not exist
         } else {
-            commands[command].command(message, args);
+            commands[command].command(message, args, client);
         }
     });
 };

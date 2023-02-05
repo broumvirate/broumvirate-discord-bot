@@ -23,6 +23,7 @@
         "dotenv": "^8.2.0",
         "ffmpeg": "0.0.4",
         "imagemagick": "^0.1.3",
+        "mastodon": "^1.2.2",
         "mongodb": "^3.5.7",
         "mongoose": "^5.9.12",
         "require-dir": "^1.2.0",

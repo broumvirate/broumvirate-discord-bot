@@ -1,27 +1,50 @@
 require("dotenv").config();
-const Discord = require("discord.js");
 const Twitter = require("twitter-lite");
-const fs = require("fs");
+var Masto = require('mastodon')
 
-const twitclient = new Twitter({
-    subdomain: "api",
-    consumer_key: process.env.APP_KEY, // from Twitter.
-    consumer_secret: process.env.APP_SECRET, // from Twitter.
-    access_token_key: process.env.ACC_KEY, // from your User (oauth_token)
-    access_token_secret: process.env.ACC_SECRET, // from your User (oauth_token_secret)
-});
+class TwitterHandler {
+    constructor()
+    {
+        this.twitClient = new Twitter({
+            subdomain: "api",
+            consumer_key: process.env.APP_KEY, // from Twitter.
+            consumer_secret: process.env.APP_SECRET, // from Twitter.
+            access_token_key: process.env.ACC_KEY, // from your User (oauth_token)
+            access_token_secret: process.env.ACC_SECRET, // from your User (oauth_token_secret)
+        });
+    }
+
+    tweet(text, image){
+        return this.twitClient.post("statuses/update", {
+            status: text,
+        });
+    }
+}
+
+class MastodonHandler{
+    constructor(){
+        this.masto = new Masto({
+            access_token: process.env.MASTO_TOKEN,
+            timeout_ms: 60*1000,  // optional HTTP request timeout to apply to all requests.
+            api_url: 'https://mstdn.social/api/v1/', // optional, defaults to https://mastodon.social/api/v1/
+          });
+    }
+
+    tweet(text, image){
+        return this.masto.post('statuses', {status: text});
+    }
+}
+
+const handlers = [new TwitterHandler(), new MastodonHandler()]
 
 module.exports.tweet = (message, tweetcontent) => {
-    twitclient
-        .post("statuses/update", {
-            status: tweetcontent.content,
-        })
+    return Promise.all(handlers.map(handl => handl.tweet(tweetcontent.content, tweetcontent.image ?? null)))
         .then(() => {
             message.channel.send(
-                `Successfully tweeted '${tweetcontent.content}' to the Broumvirate account.`
+                `Successfully tweeted '${tweetcontent.content}' to the Broumvirate account(s).`
             );
         })
         .catch(() => {
-            message.channel.send("Failed to tweet to the Broumvirate account.");
-        });
+            message.channel.send("Failed to tweet to at least one Broumvirate account.");
+        })
 };

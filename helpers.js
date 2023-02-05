@@ -14,6 +14,8 @@ const nicknameTags = {
     jack: "335522692805558273",
     sandpaper: "335522692805558273", // same as jack
     johnhenry: "235580828007137281",
+    nico: "872463307599142972",
+    prequelguy: "144615155131613184"
 }
 
 const bhotmString = () => {

@@ -1,4 +1,4 @@
-const tweetindex = require("../schema/tweetindex.js");
+const voter = require("../tweetumsVoter");
 
 module.exports.help = "**&tweet:** Post a tweet to the index.";
 
@@ -14,37 +14,5 @@ module.exports.command = (message, args) => {
     //Consolidates args into string, creates a tweet in the database.
     const tweet = args.join(" ");
 
-    tweetindex.find({content:tweet})
-    .then((res) => {
-        if(res.length > 0)
-        {
-            throw 'Tweet already exists';
-        }
-        return;
-    })
-    .then(() => {
-        return tweetindex
-            .countDocuments({$or:[{isArchived: false}, {isArchived: {$exists: false}}]})
-            .then((id) => {
-                return tweetindex.create({
-                    content: tweet,
-                    yes: [message.author.id],
-                    no: [],
-                    sort: id,
-                });
-            })
-            .then((tweet) => {
-                message.channel.send(
-                    `${message.author.username} would like to tweet '${tweet.content}'. Use &vote [yes/no] ${tweet.sort} to vote.`
-                );
-            })
-    })
-    .catch((err) => {
-        if(err == 'Tweet already exists')
-        {
-            message.reply("tweet already exists, commie.")
-        }
-        else message.channel.send("I can't do it.")
-    })
-
+    voter.tweetText(message, tweet);
 };
