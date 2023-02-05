@@ -38,7 +38,7 @@ class MastodonHandler{
 const handlers = [new TwitterHandler(), new MastodonHandler()]
 
 module.exports.tweet = (message, tweetcontent) => {
-    return Promise.all(handlers.map(handl => handl.tweet(tweetcontent.content, tweetcontent.image ?? null)))
+    return Promise.all(handlers.map(handl => handl.tweet(tweetcontent.content, tweetcontent.image)))
         .then(() => {
             message.channel.send(
                 `Successfully tweeted '${tweetcontent.content}' to the Broumvirate account(s).`
