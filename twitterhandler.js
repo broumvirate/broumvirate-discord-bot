@@ -35,7 +35,8 @@ class MastodonHandler{
     }
 }
 
-const handlers = [new TwitterHandler(), new MastodonHandler()]
+//                \|/ uncomment if twitter ever works again
+const handlers = [/*new TwitterHandler(),*/ new MastodonHandler()]
 
 module.exports.tweet = (message, tweetcontent) => {
     return Promise.all(handlers.map(handl => handl.tweet(tweetcontent.content, tweetcontent.image)))
